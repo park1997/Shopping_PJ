@@ -1,12 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>현명한 쇼핑러</title>
+    <link href="https://unpkg.com/mvp.css" rel="stylesheet"/>
 </head>
 <body>
+    
+    <header>
+        <h1>{{title}}</h1>
+    </header>
+    <center>
+        <form id="search_form" action="/search">
+            <input
+                type="search"
+                placeholder="keyword"
+                id="search_input"
+                name="query"/>
+            <button type="submit">검색</button>
+        </form>
+    </center>
+    
+    <main>
+        {% if shops %}
+        <center>
+            <!-- books|length 는 len(books)와 같다 -->
+            <h3 style="color: gray">{{shops|length}}개 데이터 수집..</h3>
+        </center>
+        <section>
+            <!-- book 순회 -->
+            {% for shop in shops %}
+            <div>
+                <img src="{{shop.image}}" width="200px" height="250px"/>
+                <p>
+                    <!-- 제품 이름의 문자열 길이가 10을 초과한다면 자른다 -->
+                    {% if shop.title|length > 20 %}
+                    {{shop.title[:20]}}...
+                    {% else %} {{shop.title}} {% endif %}
+                </p>
+                <p>분류 : {{shop.category3}}</p>
+                <p>{{shop.lprice}} 원</p>
+            </div>
+            {% endfor %}
+        </section>
+        <!-- content에서 제품 데이터를 받지 못했다면 -->
+        {% else %}
+        <center>
+            <h3 style="color: gray">Please Input Keyword...</h3>
+        </center>
+        {% endif %}
+    </main>
     
 </body>
 </html>
