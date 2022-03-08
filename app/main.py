@@ -14,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent
 
 app = FastAPI()
 # Jinja2Template사용
-templates = Jinja2Templates(directory=BASE_DIR/"templates")
+templates = Jinja2Templates(directory=str(BASE_DIR/"templates"))
 
 # 하나의 라우터임 => 요청을 받고 해당하는 요청에 의한 응답을 해주는 것
 # response_class=HTMLResponse => response 했을때 html을 서빙 해주겠다!
